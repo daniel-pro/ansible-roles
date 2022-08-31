@@ -1,0 +1,6 @@
+---
+# vars file for common-linux
+
+common_packages:
+  - nfs-utils
+  - xauth

@@ -1,0 +1,6 @@
+---
+# handlers file for common-unix
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
