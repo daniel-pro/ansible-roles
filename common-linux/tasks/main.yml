@@ -9,9 +9,6 @@
   yum:
     name: "{{ common_packages }}"
     state: present
-  environment:
-    https_proxy: "{{ http_proxy }}"
-    http_proxy: "{{ http_proxy }}"
 
 - name: Set timezone to Europe/Rome
   community.general.timezone:
