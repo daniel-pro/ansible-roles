@@ -1,0 +1,29 @@
+---
+- name: "Create a partition on all the available disk space on {{ item.dev_name }}"
+  community.general.parted:
+    device: "/dev/{{ item.dev_name }}"
+    number: "1"
+    label: "{{ item.label }}"
+    state: present
+    fs_type: "{{ item.fs_type }}"
+  with_items: "{{ disks }}"
+  when: (disks is defined and item.dev_name in ansible_devices.keys()|list)
+
+- name: "Create an ext4 filesystem on {{ item.dev_name }}"
+  community.general.filesystem:
+    fstype: "{{ item.fs_type }}"
+    dev: "/dev/{{ item.dev_name }}1"
+  with_items: "{{ disks }}"
+  when: (disks is defined and item.dev_name in ansible_devices.keys()|list)
+
+- name: "Mount {{ item.dev_name }} on {{ item.mount_point }}"
+  ansible.posix.mount:
+    path: "{{ item.mount_point }}"
+    fstype: "{{ item.fs_type }}"
+    opts: "{{ item.mount_opts }}"
+    src: "/dev/{{ item.dev_name }}1"
+    dump: "0"
+    passno: "0"
+    state: "mounted"
+  with_items: "{{ disks }}"
+  when: (disks is defined and item.dev_name in ansible_devices.keys()|list)
