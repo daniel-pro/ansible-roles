@@ -6,7 +6,8 @@ common-linux
 Requirements
 ------------
 
-None
+Access the YUM repository to download the required packages
+
 
 Role Variables
 --------------
@@ -20,8 +21,6 @@ None
 
 Example Playbook
 ----------------
-
-
 
     - hosts: servers
       roles:
