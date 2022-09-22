@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+{% if nfs_exports is defined %}
+{%   for item1 in nfs_exports %}
+{%     for item2 in item1['access'] %}
+{{ item1['path'] }}    {{ item2['clients'] }}({{ item2['options']|join(',') }})
+{%     endfor %}
+{%   endfor %}
+{% endif %}
