@@ -11,7 +11,7 @@ None
 Role Variables
 --------------
 
-``` enable_secondary_vnic ``` triggers all tasks in the role. By defualt is set to ```false``` set it to ```true```
+``` enable_secondary_vnic ``` triggers all tasks in the role. By default is set to ```false``` set it to ```true```
 
 
 Dependencies
