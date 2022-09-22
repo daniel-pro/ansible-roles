@@ -1,0 +1,9 @@
+[Unit]
+Description=Setting the secondary vnic
+After=default.target
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/secondary_vnic_all_configure.sh -c
+[Install]
+WantedBy=multi-user.target

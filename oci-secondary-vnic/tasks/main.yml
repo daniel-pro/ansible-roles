@@ -1,0 +1,30 @@
+---
+- name: Copy configuration script
+  ansible.builtin.copy:
+    src: usr/local/sbin/secondary_vnic_all_configure.sh
+    dest: /usr/local/sbin/secondary_vnic_all_configure.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: enable_secondary_vnic
+
+- name: Copy systemd configuration file 
+  ansible.builtin.copy:
+    src: etc/systemd/system/secondary_vnic.service
+    dest: /etc/systemd/system/secondary_vnic.service
+    owner: root
+    group: root
+    mode: '0644'
+  when: enable_secondary_vnic 
+
+- name: Force systemd to reread configs
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  when: enable_secondary_vnic
+
+- name: Enable and start secondary_vnic service
+  ansible.builtin.systemd:
+    name: secondary_vnic
+    enabled: yes
+    state: started
+  when: enable_secondary_vnic
